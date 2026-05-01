@@ -1,0 +1,134 @@
+.control-panel-wrapper {
+    min-height: 100vh;
+    background: #fdfaf7; /* Subtle warm background */
+    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 24px 24px;
+    font-family: 'Inter', sans-serif;
+}
+
+.top-bar {
+    height: 70px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.top-bar-left .logo {
+    height: 45px;
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-button:hover {
+    background: #f3f4f6;
+}
+
+.icon-button.logout:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+/* Grid Layout */
+.menu-grid-container {
+    padding: 3rem 2.5rem;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 items per row */
+    gap: 1.5rem;
+}
+
+.menu-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #f3f4f6;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    height: 120px;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    border-color: #d1d5db;
+}
+
+.card-icon-container {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7c2d12; /* Deep warm brown/red */
+}
+
+.card-label {
+    flex: 1;
+    text-align: right;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #111827;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-left: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+    .menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+}

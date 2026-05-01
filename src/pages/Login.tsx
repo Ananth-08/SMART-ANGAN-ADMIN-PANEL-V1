@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Card } from 'primereact/card';
+import React, { useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
@@ -7,6 +6,7 @@ import { Mail, Lock, LogIn } from 'lucide-react';
 import '../styles/Login.css';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Toast } from 'primereact/toast';
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -14,89 +14,101 @@ const Login: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
+    const toast = useRef<Toast>(null);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         try {
-            await login({ email, password });
-            navigate('/');
+            const success = await login({ email, password });
+            if (success) {
+                navigate('/');
+            } else {
+                toast.current?.show({ 
+                    severity: 'error', 
+                    summary: 'Login Failed', 
+                    detail: 'Invalid credentials. Please try again.', 
+                    life: 3000 
+                });
+            }
         } catch (error) {
-            console.error('Login failed', error);
+            console.error('Login error', error);
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="login-container">
-            <div className="login-background">
-                <div className="blob blob-1"></div>
-                <div className="blob blob-2"></div>
-                <div className="blob blob-3"></div>
+        <div className="login-wrapper">
+            <Toast ref={toast} />
+            <div className="login-side-image">
+                <div className="image-overlay">
+                    <div className="overlay-content">
+                        <h1>Empowering the Future</h1>
+                        <p>Smart Angan: Revolutionizing early childhood education through technology and care.</p>
+                    </div>
+                </div>
+                <img src="/login-cover.png" alt="Login Cover" className="cover-img" />
             </div>
-            
-            <Card className="login-card shadow-8">
-                <div className="login-header">
-                    <div className="logo-container">
-                        <img src="/logo.png" alt="Smart Angan Logo" className="login-logo" onError={(e) => (e.currentTarget.src = 'https://primefaces.org/cdn/primereact/images/logo.png')} />
-                    </div>
-                    <h2>Welcome Back</h2>
-                    <p>Enter your credentials to access the admin panel</p>
-                </div>
 
-                <form onSubmit={handleLogin} className="login-form">
-                    <div className="field">
-                        <span className="p-input-icon-left w-full">
-                            <Mail size={18} className="input-icon" />
-                            <InputText 
-                                id="email" 
-                                value={email} 
-                                onChange={(e) => setEmail(e.target.value)} 
-                                placeholder="Email Address" 
-                                className="w-full"
-                                required
-                            />
-                        </span>
-                    </div>
-
-                    <div className="field mt-4">
-                        <span className="p-input-icon-left w-full">
-                            <Lock size={18} className="input-icon" />
-                            <Password 
-                                id="password" 
-                                value={password} 
-                                onChange={(e) => setPassword(e.target.value)} 
-                                placeholder="Password" 
-                                className="w-full"
-                                feedback={false}
-                                toggleMask
-                                required
-                            />
-                        </span>
-                    </div>
-
-                    <div className="flex align-items-center justify-content-between mt-4">
-                        <div className="flex align-items-center">
-                            <input type="checkbox" id="remember-me" className="mr-2" />
-                            <label htmlFor="remember-me" className="text-sm cursor-pointer">Remember me</label>
+            <div className="login-side-form">
+                <div className="login-form-container">
+                    <div className="login-header">
+                        <div className="logo-container">
+                            <img src="/logo.png" alt="Smart Angan Logo" className="login-logo" onError={(e) => (e.currentTarget.src = 'https://primefaces.org/cdn/primereact/images/logo.png')} />
                         </div>
-                        <a href="#" className="text-sm forgot-password">Forgot password?</a>
+                        <h2>Admin Portal</h2>
+                        <p>Welcome back! Please enter your details.</p>
                     </div>
 
-                    <Button 
-                        type="submit" 
-                        label="Login" 
-                        icon={<LogIn size={18} className="mr-2" />} 
-                        loading={loading}
-                        className="w-full mt-5 login-button"
-                    />
-                </form>
+                    <form onSubmit={handleLogin} className="login-form">
+                        <div className="field">
+                            <label htmlFor="email">Email Address</label>
+                            <span className="p-input-icon-left w-full mt-2">
+                                <Mail size={18} className="input-icon" />
+                                <InputText 
+                                    id="email" 
+                                    value={email} 
+                                    onChange={(e) => setEmail(e.target.value)} 
+                                    placeholder="Enter your email" 
+                                    className="w-full"
+                                    required
+                                />
+                            </span>
+                        </div>
 
-                <div className="login-footer mt-5">
-                    <p>Don't have an account? <a href="#">Contact Support</a></p>
+                        <div className="field mt-4">
+                            <label htmlFor="password">Password</label>
+                            <span className="p-input-icon-left w-full mt-2">
+                                <Lock size={18} className="input-icon" />
+                                <Password 
+                                    id="password" 
+                                    value={password} 
+                                    onChange={(e) => setPassword(e.target.value)} 
+                                    placeholder="••••••••" 
+                                    className="w-full"
+                                    feedback={false}
+                                    toggleMask
+                                    required
+                                />
+                            </span>
+                        </div>
+
+                        <div className="flex align-items-center justify-content-end mt-4">
+                            <a href="#" className="text-sm forgot-password">Forgot password?</a>
+                        </div>
+
+                        <Button 
+                            type="submit" 
+                            label="Sign in" 
+                            icon={<LogIn size={18} className="mr-2" />} 
+                            loading={loading}
+                            className="w-full mt-5 login-button"
+                        />
+                    </form>
+
                 </div>
-            </Card>
+            </div>
         </div>
     );
 };

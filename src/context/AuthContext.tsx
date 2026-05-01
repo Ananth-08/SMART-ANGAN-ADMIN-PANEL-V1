@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface AuthContextType {
     user: any;
-    login: (credentials: any) => Promise<void>;
+    login: (credentials: any) => Promise<boolean>;
     logout: () => void;
     isAuthenticated: boolean;
 }
@@ -22,11 +22,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     const login = async (credentials: any) => {
-        // Mock login
-        const mockUser = { email: credentials.email, role: 'admin' };
-        localStorage.setItem('user', JSON.stringify(mockUser));
-        setUser(mockUser);
-        setIsAuthenticated(true);
+        // Hardcoded credentials for SMART-ANGAN
+        if (credentials.email === 'admin' && credentials.password === '12345678') {
+            const mockUser = { email: credentials.email, role: 'super-admin' };
+            localStorage.setItem('user', JSON.stringify(mockUser));
+            setUser(mockUser);
+            setIsAuthenticated(true);
+            return true;
+        }
+        return false;
     };
 
     const logout = () => {
