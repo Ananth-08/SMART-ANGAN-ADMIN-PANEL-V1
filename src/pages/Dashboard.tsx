@@ -1,43 +1,29 @@
 import React, { useState, useMemo } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { 
-    LayoutDashboard, 
     School, 
-    Users, 
-    Settings, 
     BarChart3, 
-    Bell, 
-    User, 
-    LogOut,
-    TrendingUp,
-    TrendingDown,
-    Calendar as CalendarIcon,
-    Filter
+    TrendingUp, 
+    TrendingDown, 
+    Calendar as CalendarIcon, 
+    Filter,
+    ArrowLeft
 } from 'lucide-react';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
 import { mockData } from '../utils/mockData';
+import MainLayout from '../components/MainLayout';
+import { Link } from 'react-router-dom';
 import '../styles/ControlPanel.css';
 
 const Dashboard: React.FC = () => {
-    const { logout, user } = useAuth();
     const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
     const [dateRange, setDateRange] = useState<Date | Date[] | null>(new Date());
-
-    const menuItems = [
-        { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/' },
-        { id: 'onboard', label: 'Schools & Staffs', icon: <School size={20} />, path: '/onboard' },
-        { id: 'students', label: 'Student List', icon: <Users size={20} />, path: '/students' },
-        { id: 'settings', label: 'Settings', icon: <Settings size={20} />, path: '/settings' },
-        { id: 'reports', label: 'Reports', icon: <BarChart3 size={20} />, path: '/reports' }
-    ];
 
     const schoolOptions = [
         { label: 'All Schools', value: null },
         ...mockData.schools.map(s => ({ label: s.name, value: s.id }))
     ];
 
-    // Calculate stats based on filters
     const stats = useMemo(() => {
         const filteredStudents = selectedSchool 
             ? mockData.students.filter(s => s.schoolId === selectedSchool)
@@ -63,45 +49,15 @@ const Dashboard: React.FC = () => {
     }, [selectedSchool]);
 
     return (
-        <div className="control-panel-wrapper">
-            <header className="top-bar">
-                <div className="top-bar-left">
-                    <img src="/logo.png" alt="Smart Angan" className="logo" />
-                    <h1 className="panel-title">CONTROL PANEL</h1>
+        <MainLayout>
+            <div className="dashboard-content">
+                <div className="mb-4">
+                    <Link to="/" className="flex align-items-center gap-2 text-gray-600 no-underline hover:text-gray-900 transition-colors">
+                        <ArrowLeft size={18} />
+                        <span className="font-semibold">Back to Control Panel</span>
+                    </Link>
                 </div>
-                
-                <div className="top-bar-right">
-                    <div className="user-info">
-                        <button className="icon-button">
-                            <Bell size={20} />
-                        </button>
-                        <button className="icon-button">
-                            <User size={20} />
-                        </button>
-                        <span className="ml-2 font-semibold text-gray-700">{user?.email}</span>
-                        <button className="icon-button logout" onClick={logout} title="Logout">
-                            <LogOut size={20} />
-                        </button>
-                    </div>
-                </div>
-            </header>
 
-            <nav className="menu-grid-container">
-                <div className="menu-grid">
-                    {menuItems.map((item) => (
-                        <div key={item.id} className="menu-card">
-                            <div className="card-icon-container">
-                                {item.icon}
-                            </div>
-                            <div className="card-label">
-                                {item.label}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </nav>
-
-            <main className="dashboard-content">
                 <div className="dashboard-header">
                     <h2>Dashboard Overview</h2>
                     <div className="dashboard-filters">
@@ -178,8 +134,8 @@ const Dashboard: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
+            </div>
+        </MainLayout>
     );
 };
 

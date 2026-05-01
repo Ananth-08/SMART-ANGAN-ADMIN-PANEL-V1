@@ -2,11 +2,11 @@ import React, { useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import { Mail, Lock, LogIn } from 'lucide-react';
 import '../styles/Login.css';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Toast } from 'primereact/toast';
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -64,8 +64,10 @@ const Login: React.FC = () => {
                     <form onSubmit={handleLogin} className="login-form">
                         <div className="field">
                             <label htmlFor="email">Email Address</label>
-                            <span className="p-input-icon-left w-full mt-2">
-                                <Mail size={18} className="input-icon" />
+                            <div className="p-inputgroup flex-1 mt-2">
+                                <span className="p-inputgroup-addon">
+                                    <Mail size={18} />
+                                </span>
                                 <InputText 
                                     id="email" 
                                     value={email} 
@@ -74,13 +76,15 @@ const Login: React.FC = () => {
                                     className="w-full"
                                     required
                                 />
-                            </span>
+                            </div>
                         </div>
 
                         <div className="field mt-4">
                             <label htmlFor="password">Password</label>
-                            <span className="p-input-icon-left w-full mt-2">
-                                <Lock size={18} className="input-icon" />
+                            <div className="p-inputgroup flex-1 mt-2">
+                                <span className="p-inputgroup-addon">
+                                    <Lock size={18} />
+                                </span>
                                 <Password 
                                     id="password" 
                                     value={password} 
@@ -91,7 +95,7 @@ const Login: React.FC = () => {
                                     toggleMask
                                     required
                                 />
-                            </span>
+                            </div>
                         </div>
 
                         <div className="flex align-items-center justify-content-end mt-4">
@@ -106,7 +110,6 @@ const Login: React.FC = () => {
                             className="w-full mt-5 login-button"
                         />
                     </form>
-
                 </div>
             </div>
         </div>

@@ -107,17 +107,20 @@
     color: #374151;
 }
 
-.input-icon {
-    position: absolute;
-    left: 1rem;
-    top: 68%;
-    transform: translateY(-50%);
-    color: #9ca3af;
-    z-index: 10;
+.p-inputgroup-addon {
+    background-color: #f9fafb !important;
+    border-color: #d1d5db !important;
+    color: #9ca3af !important;
+    border-top-left-radius: 12px !important;
+    border-bottom-left-radius: 12px !important;
 }
 
-.p-icon-field.p-icon-field-right {
-    width: 100%;
+.p-inputgroup .p-inputtext, 
+.p-inputgroup .p-password input {
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }
 
 .p-inputtext {
