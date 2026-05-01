@@ -81,6 +81,9 @@ const Dashboard: React.FC = () => {
                                 value={dateRange as Date} 
                                 onChange={(e) => setDateRange(e.value)} 
                                 placeholder="Select Date"
+                                dateFormat="dd/mm/yy"
+                                className="w-full"
+                                inputClassName="border-none"
                                 showIcon={false}
                             />
                         </div>

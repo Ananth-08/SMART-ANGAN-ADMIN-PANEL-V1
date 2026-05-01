@@ -15,7 +15,6 @@ const ControlPanel: React.FC = () => {
         { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={24} />, path: '/dashboard' },
         { id: 'onboard', label: 'Schools & Staffs', icon: <School size={24} />, path: '/schools-staff' },
         { id: 'students', label: 'Student List', icon: <Users size={24} />, path: '/students' },
-        { id: 'settings', label: 'Settings', icon: <Settings size={24} />, path: '/settings' },
         { id: 'reports', label: 'Reports', icon: <BarChart3 size={24} />, path: '/reports' }
     ];
 

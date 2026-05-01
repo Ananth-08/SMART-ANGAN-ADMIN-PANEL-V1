@@ -3,6 +3,8 @@ import Login from '../pages/Login';
 import ControlPanel from '../pages/ControlPanel';
 import Dashboard from '../pages/Dashboard';
 import SchoolsStaff from '../pages/SchoolsStaff';
+import Students from '../pages/Students';
+import Reports from '../pages/Reports';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 const AppRouter = () => {
@@ -34,20 +36,11 @@ const AppRouter = () => {
                         </ProtectedRoute>
                     } 
                 />
-                {/* Fallback for other routes */}
                 <Route 
                     path="/students" 
                     element={
                         <ProtectedRoute>
-                            <div className="p-6"><h1>Students Page Placeholder</h1></div>
-                        </ProtectedRoute>
-                    } 
-                />
-                <Route 
-                    path="/settings" 
-                    element={
-                        <ProtectedRoute>
-                            <div className="p-6"><h1>Settings Page Placeholder</h1></div>
+                            <Students />
                         </ProtectedRoute>
                     } 
                 />
@@ -55,7 +48,7 @@ const AppRouter = () => {
                     path="/reports" 
                     element={
                         <ProtectedRoute>
-                            <div className="p-6"><h1>Reports Page Placeholder</h1></div>
+                            <Reports />
                         </ProtectedRoute>
                     } 
                 />

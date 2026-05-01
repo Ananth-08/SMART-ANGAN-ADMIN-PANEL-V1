@@ -21,6 +21,23 @@ export const mockData = {
         age: Math.floor(Math.random() * 3) + 3, // 3-5 years
         gender: Math.random() > 0.5 ? 'Male' : 'Female',
         schoolId: `S${(i % 4) + 1}`,
+        parentMobile: `98765432${i.toString().padStart(2, '0')}`,
+        height: Math.floor(Math.random() * 20) + 90, // 90-110 cm
+        weight: Math.floor(Math.random() * 10) + 12, // 12-22 kg
+        vaccinations: [
+            { name: 'BCG', status: 'Completed', date: '2026-01-10' },
+            { name: 'Polio', status: 'Completed', date: '2026-02-15' },
+            { name: 'MMR', status: 'Pending', date: '-' }
+        ],
+        meals: [
+            { date: '2026-05-01', type: 'Breakfast', menu: 'Poha' },
+            { date: '2026-05-01', type: 'Lunch', menu: 'Dal Rice' }
+        ],
+        healthHistory: {
+            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+            weight: [14.2, 14.5, 14.8, 15.2, 15.5],
+            height: [95, 95.5, 96, 96.8, 97.5]
+        },
         attendance: Array.from({ length: 30 }, () => Math.random() > 0.2) // Last 30 days attendance
     }))
 };
