@@ -10,16 +10,13 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState<any>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    useEffect(() => {
+    const [user, setUser] = useState<any>(() => {
         const savedUser = localStorage.getItem('user');
-        if (savedUser) {
-            setUser(JSON.parse(savedUser));
-            setIsAuthenticated(true);
-        }
-    }, []);
+        return savedUser ? JSON.parse(savedUser) : null;
+    });
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+        return localStorage.getItem('user') !== null;
+    });
 
     const login = async (credentials: any) => {
         // Hardcoded credentials for SMART-ANGAN
